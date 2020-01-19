@@ -54,7 +54,7 @@ def takeCommand():
     except Exception as e:
         print("did not get it, say that again")
         speak("did not get it, say that again")
-        query = "None"
+        query = None
 
     return query
 
@@ -70,16 +70,24 @@ def initial():
 
     wishme()
 
-# this function is used for changing user name
+# this function is used for changing user name it takes confirmation if yes then username chages if no askes again
 def callWithName(name):
     print("you want me to call you '"+name+"'?")
     speak("you want me to call you '"+name+"'?")
-    takeCommand()
+    query = takeCommand()
+
     if 'yes' in query:
         global user
         user = name
         print("hello "+user)
         speak("hello"+user)
+
+    elif 'no' in query:
+        print("then what is your name sir ?")
+        speak("then what is your name sir ?")
+        rname = takeCommand()
+        callWithName(rname)
+
     
 if __name__ == "__main__":
 
@@ -94,7 +102,13 @@ if __name__ == "__main__":
         inType = input("press 1:for speak \n 2: for type:")
 
         if inType=="1":
-            query = takeCommand().lower()
+            query = takeCommand()
+
+            if query != None:
+                query = query.lower()
+
+            else :
+                continue
 
         elif inType=="2":
             query = input("type here:")
@@ -123,8 +137,8 @@ if __name__ == "__main__":
             music_dir = 'F:\\songs\\Mp3'
             songs = os.listdir(music_dir)
             print(songs)
-            print("which song you want to play ?")
-            speak("which song you want to play ?")
+            print("which song you want to play ?, select a number from the list")
+            speak("which song you want to play ?, select a number from the list")
 
             speak("press 1 for speak and 2 for type:")
             songType = input("press 1:for speak \n 2: for type:")
@@ -152,8 +166,8 @@ if __name__ == "__main__":
             music_dir = 'F:\\songs\\Mp4'
             songs = os.listdir(music_dir)
             print(songs)
-            print("which video you want to play ?")
-            speak("which video you want to play ?")
+            print("which video you want to play ?, select a number from the list")
+            speak("which video you want to play ?, select a number from the list")
 
             speak("press 1 for speak and 2 for type:")
             songType = input("press 1:for speak \n 2: for type:")
